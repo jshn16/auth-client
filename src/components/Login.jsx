@@ -12,7 +12,9 @@ function Login() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:4000/login", { username, password })
+      // .post("http://localhost:4000/login", { username, password })
+      .post("https://auth-server-syyz.onrender.com/login", { username, password })
+      
       .then((responce) => {
         console.log(responce.data.username)
         SetUser(responce.data.username);
