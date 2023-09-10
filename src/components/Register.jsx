@@ -1,8 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-function Register() {
+import Header from "./Header";
+function Register({user}) {
+
+
+
+
+
   const [username, setUserName] = useState("");
   
   const [password, setPassword] = useState("");
@@ -11,12 +17,19 @@ function Register() {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      // .post("http://localhost:4000/register", { username, password })
-      .post("https://auth-server-syyz.onrender.com/register", { username, password })
+      .post("http://localhost:4000/register", { username, password })
+      //.post("https://auth-server-syyz.onrender.com/register", { username, password })
       
       .then((responce) => {
         console.log(responce);
-        navigate("/");
+        if(responce.data.message){
+          
+          alert(responce.data.message)
+        }else{
+          alert("User Created")
+          navigate("/login");
+        }
+        
       })
       .catch((error) => {
         console.log(error);
@@ -25,6 +38,7 @@ function Register() {
 
   return (
     <div>
+      <Header/>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>

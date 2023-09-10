@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+
+  
+
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [user, SetUser] = useState("");
@@ -12,14 +16,22 @@ function Login() {
     event.preventDefault();
 
     axios
-      // .post("http://localhost:4000/login", { username, password })
-      .post("https://auth-server-syyz.onrender.com/login", { username, password })
+      .post("http://localhost:4000/login", { username, password })
+      //.post("https://auth-server-syyz.onrender.com/login", { username, password })
       
       .then((responce) => {
-        console.log(responce.data.username)
-        SetUser(responce.data.username);
         
-        // navigate('/')
+        if(responce.data.username){
+          SetUser(responce.data.username);
+          console.log(responce.data.username)
+          
+          
+        }
+        
+        else{
+          alert(responce.data)
+        }
+        
       })
       .catch((error) => {
         console.log(error);
@@ -34,12 +46,17 @@ useEffect(()=>{
     alert(`hi ${user}`)
     console.log(user)
     sessionStorage.setItem("users",JSON.stringify(user))
+    navigate('/home')
+    window.location.reload()
+    
   }
 })
   
 
   return (
     <div>
+      <Header/>
+      <div className="content">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -68,6 +85,8 @@ useEffect(()=>{
           <button>Login</button>
         </div>
       </form>
+      </div>
+      
 
    
     </div>
