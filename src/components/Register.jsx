@@ -17,8 +17,8 @@ function Register({user}) {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("http://localhost:4000/register", { username, password })
-      //.post("https://auth-server-syyz.onrender.com/register", { username, password })
+      //.post("http://localhost:4000/register", { username, password })
+      .post("https://auth-server-syyz.onrender.com/register", { username, password })
       
       .then((responce) => {
         console.log(responce);
